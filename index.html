@@ -1,219 +1,516 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Estadística Computacional — Unidad 1 & 2</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinthia Yaneth Fonseca - Estadística Computacional</title>
   <style>
-    :root{--accent:#2b6cb0;--muted:#6b7280;--card:#ffffff}
-    *{box-sizing:border-box;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
-    body{margin:0;background:#f3f4f6;color:#111}
-    header{background:linear-gradient(90deg,var(--accent),#4c8bdc);color:white;padding:28px 20px}
-    .container{max-width:1000px;margin:18px auto;padding:0 16px}
-    .title{display:flex;gap:18px;align-items:center}
-    h1{margin:0;font-size:22px}
-    .meta{font-size:14px;color:rgba(255,255,255,0.9)}
-    nav{display:flex;gap:10px;margin-top:12px}
-    nav a{background:rgba(255,255,255,0.15);padding:8px 12px;border-radius:8px;color:white;text-decoration:none;font-weight:600}
-    main{display:grid;grid-template-columns:260px 1fr;gap:20px;margin-top:18px}
-    aside{position:sticky;top:18px}
-    .card{background:var(--card);border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(15,23,42,0.06)}
-    .unit-title{display:flex;justify-content:space-between;align-items:center}
-    h2{margin:0;font-size:18px}
-    .muted{color:var(--muted);font-size:14px}
-    ul{padding-left:18px}
-    .examples{margin-top:12px}
-    .exercise{background:#fff7ed;border-left:4px solid #f59e0b;padding:10px;margin:10px 0;border-radius:6px}
-    .btn{display:inline-block;padding:8px 12px;border-radius:8px;background:var(--accent);color:white;text-decoration:none;font-weight:600}
-    footer{margin:36px 0 80px;color:var(--muted);font-size:13px;text-align:center}
-    /* simple responsive */
-    @media (max-width:880px){main{grid-template-columns:1fr}aside{position:relative}} 
-    /* small interactive quiz */
-    .quiz{margin-top:12px}
-    .result{margin-top:8px;font-weight:700}
-    code{background:#eef2ff;padding:2px 6px;border-radius:6px}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      background: #0a0e27;
+    }
+
+    /* Fondo animado */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f4d 50%, #0f1438 100%);
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      mix-blend-mode: screen;
+      animation: float 15s ease-in-out infinite;
+    }
+
+    .blob:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, #00d4ff, transparent);
+      top: -100px;
+      left: -100px;
+      animation-delay: 0s;
+    }
+
+    .blob:nth-child(2) {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #0099ff, transparent);
+      bottom: -150px;
+      right: -150px;
+      animation-delay: 2s;
+    }
+
+    .blob:nth-child(3) {
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, #00ccff, transparent);
+      top: 50%;
+      right: -100px;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(50px, -50px) scale(1.1); }
+      66% { transform: translate(-50px, 50px) scale(0.9); }
+    }
+
+    /* Contenedor principal */
+    .container {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      z-index: 1;
+    }
+
+    .content {
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .hero-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 100px;
+    }
+
+    .hero-text {
+      animation: fadeInLeft 0.8s ease-out;
+    }
+
+    .hero-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      animation: fadeInRight 0.8s ease-out;
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Encabezado principal */
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #00d4ff, #0099ff);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+    }
+
+    h1 {
+      font-size: 56px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #00d4ff, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      font-size: 24px;
+      background: linear-gradient(135deg, #0099ff, #00ccff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    .description {
+      font-size: 16px;
+      color: #a0aec0;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    /* Imagen con efecto */
+    .image-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(0, 212, 255, 0.1);
+      border: 2px solid rgba(0, 212, 255, 0.3);
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 250px;
+    }
+
+    .image-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(0, 212, 255, 0.6);
+      box-shadow: 0 20px 50px rgba(0, 212, 255, 0.2);
+    }
+
+    .image-card img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 20px rgba(0, 212, 255, 0.3));
+    }
+
+    /* Información de contacto */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 40px 0;
+      max-width: 600px;
+    }
+
+    .info-card {
+      background: rgba(0, 212, 255, 0.05);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      padding: 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+      background: rgba(0, 212, 255, 0.15);
+      border-color: rgba(0, 212, 255, 0.6);
+      transform: translateY(-5px);
+    }
+
+    .info-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .info-label {
+      font-size: 12px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    .info-text {
+      font-size: 14px;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Botones de acción */
+    .button-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin: 40px 0;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00d4ff, #0099ff);
+      color: white;
+      box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 50px rgba(0, 212, 255, 0.5);
+    }
+
+    /* Sección de introducción */
+    .intro-section {
+      background: rgba(0, 212, 255, 0.05);
+      border: 2px solid rgba(0, 212, 255, 0.2);
+      border-radius: 20px;
+      padding: 60px 40px;
+      margin-bottom: 80px;
+      backdrop-filter: blur(10px);
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .intro-section h2 {
+      font-size: 36px;
+      background: linear-gradient(135deg, #00d4ff, #0099ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .intro-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .intro-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .intro-card:hover {
+      background: rgba(0, 212, 255, 0.1);
+      border-color: rgba(0, 212, 255, 0.6);
+      transform: translateY(-10px);
+    }
+
+    .intro-icon {
+      font-size: 56px;
+      margin-bottom: 20px;
+    }
+
+    .intro-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #00d4ff;
+      margin-bottom: 12px;
+    }
+
+    .intro-text {
+      font-size: 14px;
+      color: #a0aec0;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+      position: relative;
+      padding: 40px 20px;
+      text-align: center;
+      color: #64748b;
+      font-size: 13px;
+      border-top: 1px solid rgba(0, 212, 255, 0.1);
+      margin-top: 80px;
+    }
+
+    footer a {
+      color: #00d4ff;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #00ffff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-section {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero-images {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      .subtitle {
+        font-size: 18px;
+      }
+
+      .intro-content {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-section {
+        padding: 30px 20px;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="title">
-        <div>
-          <h1>Estadística Computacional</h1>
-          <div class="meta">Docente: <strong>Fred Torres Cruz</strong> &nbsp;•&nbsp; Estudiante: <strong>Yaneth Fonseca Lizárraga</strong></div>
-        </div>
-      </div>
-      <nav>
-        <a href="#unidad1">Unidad 1 — Fundamentos</a>
-        <a href="#unidad2">Unidad 2 — Simulación y Generadores</a>
-        <a href="#recursos">Recursos</a>
-        <a href="#imprimir" id="printLink">Imprimir / Exportar</a>
-      </nav>
-    </div>
-  </header>
-
-  <div class="container">
-    <main>
-      <aside>
-        <div class="card">
-          <h3>Índice rápido</h3>
-          <ol>
-            <li><a href="#unidad1">Unidad 1: Fundamentos</a></li>
-            <li><a href="#unidad2">Unidad 2: Simulación</a></li>
-            <li><a href="#ejercicios">Ejercicios propuestos</a></li>
-            <li><a href="#recursos">Recursos / Bibliografía</a></li>
-          </ol>
-          <hr />
-          <p class="muted">Consejo: usa el menú superior para navegar o toca los títulos en el índice.</p>
-        </div>
-      </aside>
-
-      <section>
-        <article id="unidad1" class="card">
-          <div class="unit-title">
-            <h2>Unidad 1 — Fundamentos de Estadística Computacional</h2>
-            <div class="muted">Resumen rápido</div>
-          </div>
-          <p class="muted">Objetivo: entender conceptos básicos y cómo implementarlos con código.</p>
-
-          <h3>Temas</h3>
-          <ul>
-            <li>Definición y rol de la estadística computacional</li>
-            <li>Tipos de datos y medidas resumen: media, mediana, moda, varianza, desviación estándar</li>
-            <li>Visualización básica: histogramas, diagramas de caja (boxplot)</li>
-            <li>Introducción a muestreo y errores</li>
-          </ul>
-
-          <h3>Ejemplo simple (manual + calculadora)</h3>
-          <p>Conjunto de datos: <code>[4, 7, 6, 9, 5]</code></p>
-          <ul class="examples">
-            <li>Media = (4+7+6+9+5) / 5 = 31 / 5 = 6.2</li>
-            <li>Mediana = 6 (orden: 4,5,6,7,9)</li>
-            <li>Varianza muestral = suma((x - media)^2) / (n-1) = ... (ejercicio)</li>
-          </ul>
-
-          <div class="exercise">
-            <strong>Ejercicio 1:</strong> Calcula media, mediana y desviación estándar del conjunto <code>[12, 15, 11, 14, 13]</code>. Responde en una nota.
-          </div>
-
-          <h3>Pequeño script interactivo (JS)</h3>
-          <p class="muted">Pega cualquier lista de números separados por comas y obtén media y mediana.</p>
-          <div>
-            <input id="numsInput" placeholder="Ej: 4,7,6,9,5" style="width:60%;padding:8px;border-radius:6px;border:1px solid #d1d5db" />
-            <button class="btn" onclick="calcStats()">Calcular</button>
-            <div id="statsOut" class="muted" style="margin-top:10px"></div>
-          </div>
-        </article>
-
-        <article id="unidad2" class="card" style="margin-top:16px">
-          <div class="unit-title">
-            <h2>Unidad 2 — Simulación y Generadores de Números Aleatorios</h2>
-            <div class="muted">Resumen rápido</div>
-          </div>
-
-          <h3>Temas</h3>
-          <ul>
-            <li>Generadores congruenciales lineales (LCG)</li>
-            <li>Mersenne Twister (concepto)</li>
-            <li>Pruebas simples de uniformidad</li>
-            <li>Simulación Monte Carlo básica</li>
-          </ul>
-
-          <h3>Ejemplo: LCG simple en JavaScript</h3>
-          <p class="muted">Implementación educativa — no usar para criptografía.</p>
-          <pre style="background:#f8fafc;padding:10px;border-radius:6px;overflow:auto">// a = 1664525, c = 1013904223, m = 2^32
-function lcg(seed){
-  var a=1664525, c=1013904223, m=4294967296;
-  seed = (a*seed + c) % m;
-  return {value: seed / m, seed: seed};
-}
-</pre>
-
-          <div class="exercise">
-            <strong>Ejercicio 2:</strong> Usa el LCG anterior con semilla 12345 y genera 5 números. Anota si parecen uniformes.
-          </div>
-
-          <h3>Actividad interactiva — Mini-quiz</h3>
-          <div class="quiz">
-            <label>¿Cuál es la media del conjunto [2,4,6]? </label>
-            <div>
-              <button class="btn" onclick="checkQuiz(4)">4</button>
-              <button class="btn" style="background:#10b981;margin-left:8px" onclick="checkQuiz(6)">6</button>
-              <button class="btn" style="background:#ef4444;margin-left:8px" onclick="checkQuiz(3)">3</button>
-            </div>
-            <div id="quizRes" class="result"></div>
-          </div>
-        </article>
-
-        <article id="ejercicios" class="card" style="margin-top:16px">
-          <h2>Ejercicios propuestos</h2>
-          <ol>
-            <li>Implementa en JavaScript funciones para media, mediana y varianza.</li>
-            <li>Genera 1000 números con LCG y dibuja un histograma (puedes usar papel o una librería).</li>
-            <li>Simula lanzar una moneda 100 veces y calcula la frecuencia relativa de caras.</li>
-          </ol>
-
-          <h3>Entrega sugerida</h3>
-          <p class="muted">Un archivo HTML con los scripts, un README que explique cómo ejecutar y capturas de pantalla de resultados.</p>
-        </article>
-
-        <article id="recursos" class="card" style="margin-top:16px">
-          <h2>Recursos y Bibliografía</h2>
-          <ul>
-            <li>Libros: <em>Computational Statistics</em> (ejemplo)</li>
-            <li>Documentación de librerías: <em>R docs / Python numpy / js Math.random()</em></li>
-            <li>Notas del docente y ejercicios en clase</li>
-          </ul>
-          <p class="muted">Si quieres, puedo añadir referencias formales (APA) o adaptar la página para usar gráficos con Chart.js o D3.js.</p>
-        </article>
-
-        <footer>
-          Página creada para la asignatura — Estadística Computacional. Si quieres que agregue ejercicios resueltos, exporte a Word/PPT o incluya gráficos interactivos, dime y lo incorporo.
-        </footer>
-      </section>
-    </main>
+  <!-- Animación de fondo -->
+  <div class="bg-animation">
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
   </div>
 
+  <!-- Contenedor principal -->
+  <div class="container">
+    <div class="content">
+      <!-- Sección Hero -->
+      <section class="hero-section">
+        <div class="hero-text">
+          <div class="badge">🎓 Curso Académico 2025</div>
+          <h1>Estadística Computacional</h1>
+          <div class="subtitle">Fundamentos & Simulación</div>
+          
+          <p class="description">
+            Bienvenida al fascinante mundo del análisis computacional de datos. En este curso exploraremos desde los fundamentos de la estadística hasta técnicas avanzadas de simulación Monte Carlo y generadores de números aleatorios.
+          </p>
+
+          <div class="info-grid">
+            <div class="info-card">
+              <div class="info-icon">👩‍🎓</div>
+              <div class="info-label">Estudiante</div>
+              <div class="info-text">Cinthia Yaneth Fonseca</div>
+            </div>
+            <div class="info-card">
+              <div class="info-icon">👨‍🏫</div>
+              <div class="info-label">Docente</div>
+              <div class="info-text">Fred Torres Cruz</div>
+            </div>
+          </div>
+
+          <div class="button-group">
+            <a href="https://github.com/Yaneth15/mi-primer-repositorio" class="btn btn-primary" target="_blank">
+              📦 Ver Repositorio
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-images">
+          <div class="image-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Escudo_de_la_Universidad_Nacional_del_Altiplano.svg/1200px-Escudo_de_la_Universidad_Nacional_del_Altiplano.svg.png" alt="Universidad Nacional del Altiplano">
+          </div>
+          <div class="image-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7fvlN76P5N-TjVXdAXn3qH-PH6zI9qS-LAA&s" alt="Ingeniería de Sistemas">
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección de introducción -->
+      <section class="intro-section">
+        <h2>🚀 ¿Qué aprenderás en este curso?</h2>
+        
+        <div class="intro-content">
+          <div class="intro-card">
+            <div class="intro-icon">📊</div>
+            <div class="intro-title">Unidad 1: Fundamentos</div>
+            <div class="intro-text">
+              Domina los conceptos básicos de estadística descriptiva, medidas de tendencia central, dispersión y visualización de datos.
+            </div>
+          </div>
+
+          <div class="intro-card">
+            <div class="intro-icon">🎲</div>
+            <div class="intro-title">Unidad 2: Simulación</div>
+            <div class="intro-text">
+              Explora generadores de números aleatorios, Mersenne Twister y simulación Monte Carlo para resolver problemas complejos.
+            </div>
+          </div>
+
+          <div class="intro-card">
+            <div class="intro-icon">💻</div>
+            <div class="intro-title">Implementación</div>
+            <div class="intro-text">
+              Desarrolla proyectos prácticos en JavaScript, Python y R aplicando conceptos estadísticos a problemas del mundo real.
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Cinthia Yaneth Fonseca Lizárraga • Docente: Fred Torres Cruz</p>
+    <p style="margin-top: 10px;">Universidad Nacional del Altiplano — Puno | Ingeniería de Sistemas</p>
+  </footer>
+
   <script>
-    // Función para calcular media y mediana (Unidad 1)
-    function calcStats(){
-      const raw = document.getElementById('numsInput').value.trim();
-      if(!raw){ document.getElementById('statsOut').innerText = 'Introduce números separados por comas.'; return; }
-      const arr = raw.split(',').map(s=>parseFloat(s)).filter(n=>!isNaN(n));
-      if(arr.length===0){ document.getElementById('statsOut').innerText = 'No se reconocieron números válidos.'; return; }
-      const n = arr.length;
-      const mean = arr.reduce((a,b)=>a+b,0)/n;
-      const sorted = arr.slice().sort((a,b)=>a-b);
-      const median = (n%2===1) ? sorted[(n-1)/2] : (sorted[n/2 -1] + sorted[n/2])/2;
-      document.getElementById('statsOut').innerHTML = `<strong>Media:</strong> ${mean.toFixed(4)} &nbsp; <strong>Mediana:</strong> ${median}`;
-    }
-
-    // Quiz simple
-    function checkQuiz(ans){
-      const res = document.getElementById('quizRes');
-      if(ans===4){ res.innerText = 'Incorrecto. Piensa en (2+4+6)/3.'; res.style.color='#ef4444'; }
-      else if(ans===6){ res.innerText = 'Incorrecto.'; res.style.color='#ef4444'; }
-      else if(ans===3){ res.innerText = 'Incorrecto.'; res.style.color='#ef4444'; }
-      // correct answer is 4
-      if(ans===4){ res.innerText = 'Correcto: la media es 4.'; res.style.color='#059669'; }
-    }
-
-    // Print link
-    document.getElementById('printLink').addEventListener('click',function(e){ e.preventDefault(); window.print(); });
-
-    // Nota: ejemplo de LCG para consola (Unidad 2)
-    function exampleLCG(){
-      let seed = 12345;
-      const out = [];
-      for(let i=0;i<5;i++){
-        const r = lcg(seed);
-        out.push(r.value.toFixed(6));
-        seed = r.seed;
-      }
-      console.log('LCG 5 valores:', out.join(', '));
-    }
-    // Ejecutar ejemplo al cargar (comentar si no se quiere)
-    exampleLCG();
+    // Efecto scroll suave
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
   </script>
 </body>
 </html>
