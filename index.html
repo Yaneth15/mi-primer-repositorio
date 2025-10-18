@@ -3,191 +3,471 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cinthia Yaneth Fonseca – Estadística Computacional</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
+  <title>Cinthia Yaneth Fonseca - Estadística Computacional</title>
   <style>
-  :root{
-    --bg:#0b001a;
-    --primary:#b51bf3;
-    --secondary:#9333ea;
-    --accent:#f472b6;
-    --text:#f1f5f9;
-    --muted:#94a3b8;
-    --glass:rgba(255,255,255,.04);
-    --border:rgba(255,255,255,.08);
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{
-    font-family:'Inter',sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding:60px 20px;
-  }
-  a{color:inherit;text-decoration:none;}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  .glass{
-    background:var(--glass);
-    border:1px solid var(--border);
-    border-radius:28px;
-    backdrop-filter:blur(14px);
-    padding:50px 44px;
-    max-width:880px;
-    width:100%;
-    box-shadow:0 30px 60px -15px rgba(0,0,0,.5);
-  }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      background: #000;
+      min-height: 100vh;
+    }
 
-  .top-info .univ{
-    font-size:18px;
-    font-weight:700;
-    letter-spacing:1px;
-    color:var(--primary);
-    margin-bottom:8px;
-  }
-  .top-info .badge{
-    display:inline-block;
-    background:rgba(181,27,243,.12);
-    border:1px solid var(--primary);
-    color:var(--primary);
-    padding:8px 22px;
-    border-radius:999px;
-    font-size:12px;
-    font-weight:700;
-    letter-spacing:1px;
-    margin-bottom:24px;
-  }
-  .top-info h1{
-    font-size:clamp(2.8rem,6vw,4.3rem);
-    font-weight:900;
-    line-height:1.1;
-    margin-bottom:12px;
-    background:linear-gradient(90deg,var(--primary),var(--accent));
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-  }
-  .top-info .subtitle{
-    font-size:clamp(1.1rem,2.5vw,1.5rem);
-    font-weight:300;
-    color:var(--muted);
-    margin-bottom:30px;
-  }
+    /* Fondo animado dinámico */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(-45deg, #1a0033, #3d0066, #6600cc, #9933ff);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      z-index: -2;
+    }
 
-  .personal-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:18px;
-    margin-bottom:40px;
-  }
-  .personal-grid .info{
-    background:rgba(255,255,255,.05);
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:18px 24px;
-    transition:.3s;
-  }
-  .personal-grid .info:hover{transform:translateY(-4px);border-color:var(--primary);}
-  .personal-grid .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
-  .personal-grid .value{font-size:1.05rem;font-weight:600;}
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-  .cta{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    background:var(--primary);
-    color:#fff;
-    padding:14px 36px;
-    border-radius:999px;
-    font-weight:600;
-    margin-bottom:50px;
-    box-shadow:0 10px 30px rgba(181,27,243,.35);
-    transition:.3s;
-  }
-  .cta:hover{background:var(--accent);box-shadow:0 15px 40px rgba(244,114,182,.4);}
+    /* Efecto de luces flotantes */
+    .floating-lights {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
 
-  .units{
-    display:grid;
-    gap:24px;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  }
-  .unit{
-    background:rgba(255,255,255,.03);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:28px 24px;
-    transition:.3s;
-  }
-  .unit:hover{transform:translateY(-6px);border-color:var(--primary);}
-  .unit .icon{font-size:32px;margin-bottom:12px;color:var(--accent);}
-  .unit h3{font-size:1.15rem;margin-bottom:10px;color:var(--primary);}
-  .unit p{font-size:.95rem;color:var(--muted);line-height:1.6;}
+    .light {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.15;
+    }
 
-  footer{
-    margin-top:80px;
-    font-size:12px;
-    color:var(--muted);
-    text-align:center;
-  }
+    .light1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #bb86fc, transparent);
+      top: -200px;
+      left: -200px;
+      animation: float1 20s ease-in-out infinite;
+    }
+
+    .light2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #8c55ff, transparent);
+      bottom: -300px;
+      right: -300px;
+      animation: float2 25s ease-in-out infinite;
+    }
+
+    .light3 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #6a0dad, transparent);
+      top: 50%;
+      right: -100px;
+      animation: float3 30s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(100px, 100px); }
+    }
+
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-100px, -100px); }
+    }
+
+    @keyframes float3 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-80px, 80px); }
+    }
+
+    /* Contenedor principal */
+    .container {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      z-index: 1;
+    }
+
+    .content {
+      text-align: center;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    /* Animación de entrada */
+    @keyframes slideInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-60px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(60px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-block;
+      background: rgba(187, 134, 252, 0.15);
+      border: 2px solid rgba(187, 134, 252, 0.5);
+      color: #bb86fc;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      animation: slideInDown 0.8s ease-out;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Título principal */
+    h1 {
+      font-size: 80px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 20px;
+      letter-spacing: -3px;
+      line-height: 1;
+      animation: slideInDown 0.8s ease-out 0.1s both;
+      text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+    }
+
+    .name-highlight {
+      background: linear-gradient(90deg, #bb86fc, #8c55ff, #6a0dad);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientMove 8s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Subtítulo */
+    .subtitle {
+      font-size: 32px;
+      color: #a0aec0;
+      margin-bottom: 20px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      animation: slideInDown 0.8s ease-out 0.2s both;
+    }
+
+    .subtitle span {
+      color: #00d4ff;
+      font-weight: 600;
+    }
+
+    /* Descripción */
+    .description {
+      font-size: 18px;
+      color: #cbd5e1;
+      line-height: 1.8;
+      margin: 40px 0 50px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: slideInUp 0.8s ease-out 0.3s both;
+    }
+
+    /* Info cards horizontales */
+    .info-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 60px;
+      animation: slideInUp 0.8s ease-out 0.4s both;
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .info-item {
+      background: rgba(0, 212, 255, 0.08);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      padding: 25px 40px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .info-item:hover {
+      background: rgba(0, 212, 255, 0.15);
+      border-color: rgba(0, 212, 255, 0.5);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
+    }
+
+    .info-label {
+      font-size: 12px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+
+    .info-text {
+      font-size: 18px;
+      color: #00d4ff;
+      font-weight: 700;
+    }
+
+    /* Botón principal */
+    .button-container {
+      margin-bottom: 100px;
+      animation: slideInUp 0.8s ease-out 0.5s both;
+    }
+
+    .btn-hero {
+      padding: 18px 50px;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #00d4ff, #00ff88);
+      color: #000;
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+    }
+
+    .btn-hero:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0, 212, 255, 0.6);
+      background: linear-gradient(135deg, #00ff88, #00d4ff);
+    }
+
+    .btn-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.3s ease;
+    }
+
+    .btn-hero:hover::before {
+      left: 100%;
+    }
+
+    /* Características */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 80px;
+      animation: slideInUp 0.8s ease-out 0.6s both;
+    }
+
+    .feature {
+      background: rgba(0, 212, 255, 0.05);
+      border: 1px solid rgba(0, 212, 255, 0.15);
+      padding: 40px 25px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .feature:hover {
+      background: rgba(0, 212, 255, 0.12);
+      border-color: rgba(0, 212, 255, 0.4);
+      transform: translateY(-15px);
+      box-shadow: 0 25px 50px rgba(0, 212, 255, 0.15);
+    }
+
+    .feature-icon {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+
+    .feature-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #00d4ff;
+      margin-bottom: 12px;
+    }
+
+    .feature-text {
+      font-size: 14px;
+      color: #a0aec0;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+      padding: 50px 20px;
+      text-align: center;
+      color: #64748b;
+      font-size: 13px;
+      border-top: 1px solid rgba(0, 212, 255, 0.1);
+      margin-top: 100px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 50px;
+      }
+
+      .subtitle {
+        font-size: 22px;
+      }
+
+      .description {
+        font-size: 16px;
+      }
+
+      .info-container {
+        gap: 20px;
+      }
+
+      .info-item {
+        padding: 20px 30px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .btn-hero {
+        padding: 16px 40px;
+        font-size: 15px;
+      }
+    }
   </style>
 </head>
-
 <body>
-  <div class="glass">
-    <!-- Universidad -->
-    <div class="top-info">
-      <div class="univ">Universidad Nacional del Altiplano</div>
+  <!-- Fondo animado -->
+  <div class="bg-animation"></div>
+  
+  <!-- Luces flotantes -->
+  <div class="floating-lights">
+    <div class="light light1"></div>
+    <div class="light light2"></div>
+    <div class="light light3"></div>
+  </div>
+
+  <!-- Contenedor principal -->
+  <div class="container">
+    <div class="content">
+      <!-- Universidad -->
+      <div style="font-size: 18px; color: #bb86fc; font-weight: 700; margin-bottom: 15px; letter-spacing: 1px;">Universidad Nacional del Altiplano</div>
+      
+      <!-- Badge -->
       <div class="badge">Bienvenido</div>
-      <h1>Estadística Computacional</h1>
-      <p class="subtitle">Fundamentos, Simulación y Análisis de Datos</p>
-    </div>
 
-    <!-- Info personal -->
-    <div class="personal-grid">
-      <div class="info">
-        <div class="label">Docente</div>
-        <div class="value">Fred Torres Cruz</div>
-      </div>
-      <div class="info">
-        <div class="label">Estudiante</div>
-        <div class="value">Cinthia Yaneth Fonseca Lizárraga</div>
-      </div>
-      <div class="info">
-        <div class="label">Ciclo</div>
-        <div class="value">2025 - I</div>
-      </div>
-    </div>
+      <!-- Título -->
+      <h1>
+        <span class="name-highlight">Estadística</span><br>
+        Computacional
+      </h1>
 
-    <!-- CTA -->
-    <a class="cta" href="https://github.com/Yaneth15/mi-primer-repositorio" target="_blank">
-      <i class="bi bi-github"></i> Ver Repositorio
-    </a>
+      <!-- Subtítulo -->
+      <p class="subtitle">
+        Fundamentos, Simulación y <span>Análisis de Datos</span>
+      </p>
 
-    <!-- Unidades -->
-    <div class="units">
-      <div class="unit">
-        <div class="icon"><i class="bi bi-graph-up"></i></div>
-        <h3>Unidad 1: Fundamentos</h3>
-        <p>Estadística descriptiva, medidas de tendencia central y dispersión, visualización de datos, introducción a la probabilidad y variables aleatorias discretas.</p>
+      <!-- Descripción -->
+      <p class="description">
+        Exploración profunda de los conceptos estadísticos fundamentales, técnicas de simulación Monte Carlo y generadores avanzados de números aleatorios. Un viaje académico transformador en el análisis computacional.
+      </p>
+
+      <!-- Información -->
+      <div class="info-container">
+        <div class="info-item">
+          <div class="info-label">Carrera</div>
+          <div class="info-text">Ingeniería Estadística e Informática</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Docente</div>
+          <div class="info-text">Fred Torres Cruz</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Estudiante</div>
+          <div class="info-text">Cinthia Yaneth Fonseca Lizárraga</div>
+        </div>
       </div>
-      <div class="unit">
-        <div class="icon"><i class="bi bi-dice-5"></i></div>
-        <h3>Unidad 2: Simulación</h3>
-        <p>Generadores de números pseudoaleatorios, Mersenne Twister, simulación Monte Carlo, pruebas de uniformidad e independencia estadística.</p>
+
+      <!-- Botón principal -->
+      <div class="button-container">
+        <a href="https://github.com/Yaneth15/mi-primer-repositorio" class="btn-hero" target="_blank">
+          📦 Ver Repositorio
+        </a>
       </div>
-      <div class="unit">
-        <div class="icon"><i class="bi bi-code-slash"></i></div>
-        <h3>Proyectos Avanzados</h3>
-        <p>Implementación en JavaScript, Python y R. Desarrollo de simuladores Monte Carlo y análisis de distribuciones con generadores LCG.</p>
+
+      <!-- Características -->
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">📊</div>
+          <div class="feature-title">Unidad 1: Fundamentos</div>
+          <div class="feature-text">Exploración de conceptos estadísticos descriptivos, medidas de tendencia central, variabilidad y dispersión. Visualización de datos mediante histogramas, boxplots y gráficos de distribución. Introducción a la probabilidad y variables aleatorias discretas.</div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🎲</div>
+          <div class="feature-title">Unidad 2: Simulación</div>
+          <div class="feature-text">Estudio profundo de generadores de números pseudoaleatorios, método congruencial lineal (LCG) y Mersenne Twister. Técnicas de simulación Monte Carlo para resolver problemas complejos. Pruebas de uniformidad e independencia estadística en secuencias aleatorias.</div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">💻</div>
+          <div class="feature-title">Proyectos Avanzados</div>
+          <div class="feature-text">Implementación de funciones estadísticas en JavaScript, Python y R. Desarrollo de simuladores Monte Carlo. Análisis de distribuciones mediante generadores LCG. Proyectos integradores combinando análisis de datos reales con técnicas de simulación computacional.</div>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
-    © 2025 Universidad Nacional del Altiplano — Puno
+    <p>© 2025 Universidad Nacional del Altiplano — Puno | Ingeniería Estadística e Informática</p>
+    <p style="margin-top: 10px;">Docente: Fred Torres Cruz • Estudiante: Cinthia Yaneth Fonseca Lizárraga</p>
   </footer>
 </body>
 </html>
