@@ -8,194 +8,136 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
+  <!-- Íconos -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
   <style>
-    :root{
-      --clr-bg: #0b001a;
-      --clr-primary: #b51bf3;
-      --clr-secondary: #9333ea;
-      --clr-accent: #f472b6;
-      --clr-text: #e2e8f0;
-      --clr-muted: #94a3b8;
-    }
+  :root{
+    --bg:#0b001a;
+    --primary:#b51bf3;
+    --secondary:#9333ea;
+    --accent:#f472b6;
+    --text:#f1f5f9;
+    --muted:#94a3b8;
+    --glass:rgba(255,255,255,.04);
+    --border:rgba(255,255,255,.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:60px 20px;
+  }
+  a{color:inherit;text-decoration:none;}
 
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{
-      font-family:'Inter',sans-serif;
-      background:var(--clr-bg);
-      color:var(--clr-text);
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:40px 20px;
-    }
+  /* Glass card */
+  .glass{
+    background:var(--glass);
+    border:1px solid var(--border);
+    border-radius:28px;
+    backdrop-filter:blur(14px);
+    padding:50px 44px;
+    max-width:880px;
+    width:100%;
+    box-shadow:0 30px 60px -15px rgba(0,0,0,.5);
+  }
 
-    /* Glass card */
-    .glass{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:24px;
-      backdrop-filter:blur(14px);
-      padding:50px 40px;
-      max-width:840px;
-      width:100%;
-      box-shadow:0 25px 50px -12px rgba(0,0,0,.45);
-    }
+  /* Top info */
+  .top-info .univ{font-size:18px;font-weight:700;letter-spacing:1px;color:var(--primary);}
+  .top-info .career{font-size:15px;font-weight:400;color:var(--muted);margin-bottom:24px;}
+  .top-info .badge{
+    display:inline-block;
+    background:rgba(181,27,243,.12);
+    border:1px solid var(--primary);
+    color:var(--primary);
+    padding:8px 22px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:1px;
+    margin-bottom:24px;
+  }
+  .top-info .name-highlight{
+    background:linear-gradient(90deg,var(--primary),var(--accent));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .top-info h1{font-size:clamp(2.8rem,6vw,4.3rem);font-weight:900;line-height:1.1;margin-bottom:12px;}
+  .top-info .subtitle{font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:300;color:var(--muted);margin-bottom:30px;}
 
-    .overline{
-      font-size:13px;
-      font-weight:600;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      color:var(--clr-accent);
-      margin-bottom:12px;
-    }
+  /* Personal grid */
+  .personal-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+    margin-bottom:40px;
+  }
+  .personal-grid .info{
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:18px 24px;
+    transition:.3s;
+  }
+  .personal-grid .info:hover{transform:translateY(-4px);border-color:var(--primary);}
+  .personal-grid .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+  .personal-grid .value{font-size:1.05rem;font-weight:600;}
 
-    h1{
-      font-size:clamp(2.8rem,6vw,4.5rem);
-      font-weight:900;
-      line-height:1.1;
-      margin-bottom:16px;
-      background:linear-gradient(90deg,var(--clr-primary),var(--clr-accent));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
+  /* CTA */
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--primary);
+    color:#fff;
+    padding:14px 36px;
+    border-radius:999px;
+    font-weight:600;
+    margin-bottom:50px;
+    box-shadow:0 10px 30px rgba(181,27,243,.35);
+    transition:.3s;
+  }
+  .cta:hover{background:var(--accent);box-shadow:0 15px 40px rgba(244,114,182,.4);}
 
-    .subtitle{
-      font-size:clamp(1.2rem,2.5vw,1.6rem);
-      font-weight:300;
-      color:var(--clr-muted);
-      margin-bottom:24px;
-    }
+  /* Units */
+  .units{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+  .unit{
+    background:rgba(255,255,255,.03);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:28px 24px;
+    transition:.3s;
+  }
+  .unit:hover{transform:translateY(-6px);border-color:var(--primary);}
+  .unit .icon{font-size:32px;margin-bottom:12px;color:var(--accent);}
+  .unit h3{font-size:1.15rem;margin-bottom:10px;color:var(--primary);}
+  .unit p{font-size:.95rem;color:var(--muted);line-height:1.6;}
 
-    .badge{
-      display:inline-block;
-      background:rgba(181,27,243,.12);
-      border:1px solid var(--clr-primary);
-      color:var(--clr-primary);
-      padding:8px 22px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:700;
-      letter-spacing:1px;
-      margin-bottom:24px;
-    }
-
-    .description{
-      font-size:clamp(1rem,2vw,1.15rem);
-      line-height:1.7;
-      color:var(--clr-muted);
-      margin:0 auto 36px;
-      max-width:680px;
-    }
-
-    .info-grid{
-      display:flex;
-      flex-wrap:wrap;
-      gap:20px;
-      justify-content:center;
-      margin-bottom:40px;
-    }
-
-    .info{
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.1);
-      border-radius:12px;
-      padding:18px 28px;
-      min-width:200px;
-    }
-
-    .info .label{
-      font-size:11px;
-      color:var(--clr-muted);
-      text-transform:uppercase;
-      letter-spacing:1px;
-      margin-bottom:4px;
-    }
-
-    .info .value{
-      font-size:1.05rem;
-      font-weight:600;
-      color:var(--clr-text);
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      background:var(--clr-primary);
-      color:#fff;
-      padding:14px 36px;
-      border-radius:999px;
-      font-weight:600;
-      text-decoration:none;
-      transition:.3s ease;
-      box-shadow:0 10px 30px rgba(181,27,243,.35);
-    }
-    .btn:hover{
-      background:var(--clr-accent);
-      box-shadow:0 15px 40px rgba(244,114,182,.4);
-    }
-
-    .features{
-      display:grid;
-      gap:24px;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      margin-top:50px;
-      text-align:left;
-    }
-
-    .feature{
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.07);
-      border-radius:16px;
-      padding:28px 24px;
-      transition:.3s;
-    }
-    .feature:hover{
-      transform:translateY(-6px);
-      border-color:var(--clr-primary);
-    }
-
-    .feature h3{
-      font-size:1.15rem;
-      margin-bottom:10px;
-      color:var(--clr-primary);
-    }
-
-    .feature p{
-      font-size:.95rem;
-      color:var(--clr-muted);
-      line-height:1.6;
-    }
-
-    footer{
-      margin-top:80px;
-      font-size:12px;
-      color:var(--clr-muted);
-    }
+  /* Footer */
+  footer{margin-top:80px;font-size:12px;color:var(--muted);text-align:center;}
   </style>
 </head>
 
 <body>
   <div class="glass">
-    <div class="overline">Universidad Nacional del Altiplano</div>
-    <div class="badge">Bienvenido</div>
+    <!-- 1. Universidad + Carrera -->
+    <div class="top-info">
+      <div class="univ">Universidad Nacional del Altiplano</div>
+      <div class="career">Ingeniería Estadística e Informática</div>
+      <div class="badge">Bienvenido</div>
 
-    <h1>Estadística Computacional</h1>
-    <p class="subtitle">Fundamentos, Simulación y Análisis de Datos</p>
+      <!-- 2. Título principal -->
+      <h1><span class="name-highlight">Estadística Computacional</span></h1>
+      <p class="subtitle">Fundamentos, Simulación y Análisis de Datos</p>
+    </div>
 
-    <p class="description">
-      Exploración profunda de los conceptos estadísticos fundamentales, técnicas de simulación Monte Carlo y generadores avanzados de números aleatorios. Un viaje académico transformador en el análisis computacional.
-    </p>
-
-    <div class="info-grid">
-      <div class="info">
-        <div class="label">Carrera</div>
-        <div class="value">Ingeniería Estadística e Informática</div>
-      </div>
+    <!-- 3. Información personal (arriba) -->
+    <div class="personal-grid">
       <div class="info">
         <div class="label">Docente</div>
         <div class="value">Fred Torres Cruz</div>
@@ -204,31 +146,39 @@
         <div class="label">Estudiante</div>
         <div class="value">Cinthia Yaneth Fonseca Lizárraga</div>
       </div>
+      <div class="info">
+        <div class="label">Ciclo</div>
+        <div class="value">2025 - I</div>
+      </div>
     </div>
 
-    <a class="btn" href="https://github.com/Yaneth15/mi-primer-repositorio" target="_blank">
-      📦 Ver Repositorio
+    <!-- 4. CTA -->
+    <a class="cta" href="https://github.com/Yaneth15/mi-primer-repositorio" target="_blank">
+      <i class="bi bi-github"></i> Ver Repositorio
     </a>
 
-    <div class="features">
-      <div class="feature">
-        <h3>📊 Unidad 1: Fundamentos</h3>
+    <!-- 5. Contenido curricular (abajo) -->
+    <div class="units">
+      <div class="unit">
+        <div class="icon"><i class="bi bi-graph-up"></i></div>
+        <h3>Unidad 1: Fundamentos</h3>
         <p>Estadística descriptiva, medidas de tendencia central y dispersión, visualización de datos, introducción a la probabilidad y variables aleatorias discretas.</p>
       </div>
-      <div class="feature">
-        <h3>🎲 Unidad 2: Simulación</h3>
+      <div class="unit">
+        <div class="icon"><i class="bi bi-dice-5"></i></div>
+        <h3>Unidad 2: Simulación</h3>
         <p>Generadores de números pseudoaleatorios, Mersenne Twister, simulación Monte Carlo, pruebas de uniformidad e independencia estadística.</p>
       </div>
-      <div class="feature">
-        <h3>💻 Proyectos Avanzados</h3>
+      <div class="unit">
+        <div class="icon"><i class="bi bi-code-slash"></i></div>
+        <h3>Proyectos Avanzados</h3>
         <p>Implementación en JavaScript, Python y R. Desarrollo de simuladores Monte Carlo y análisis de distribuciones con generadores LCG.</p>
       </div>
     </div>
   </div>
 
   <footer>
-    © 2025 Universidad Nacional del Altiplano — Puno | Ingeniería Estadística e Informática<br>
-    Docente: Fred Torres Cruz • Estudiante: Cinthia Yaneth Fonseca Lizárraga
+    © 2025 Universidad Nacional del Altiplano — Puno · Ingeniería Estadística e Informática
   </footer>
 </body>
 </html>
